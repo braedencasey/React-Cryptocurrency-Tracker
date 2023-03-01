@@ -1,5 +1,9 @@
 import Header from "./Components/Header";
 import './App.css';
+import Homepage from "./Pages/Homepage";
+import { BrowserRouter, Route } from "react-router-dom";
+import CoinPage from "./Pages/CoinPage";
+
 
 const useStyles = makeStyles(() => ({
     App: {
@@ -9,18 +13,20 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-function App() {
 
+    
     const classes = useStyles();
 
     return (
         <BrowserRouter>
         <div className = {classes.App}>
             <Header />
+            <Route path = "/" components = {Homepage} exact />
+            <Route path = "/coins/:id" component = {CoinPage} exact />
         </div>
         </BrowserRouter>
     )
-  
-}
+    
+
 
 export default App;
