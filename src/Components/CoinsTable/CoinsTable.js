@@ -200,7 +200,10 @@ export default function CoinsTable() {
             justifyContent: "center",
           }}
           classes={{ ul: classes.pagination }}
-          onChange={(_, value) => setPage(value)}
+          onChange={(_, value) => {
+            setPage(value);
+            window.scroll(0, 450);
+          }}
         />
       </Container>
     </ThemeProvider>
