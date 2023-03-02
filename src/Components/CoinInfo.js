@@ -10,11 +10,13 @@ import {
 } from "@material-ui/core";
 import SelectButton from "./SelectButton";
 import { chartDays } from "../config/data";
+import { CryptoState } from "../CryptoContext";
 
 const CoinInfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
   const { currency } = CryptoState();
+  const [flag, setFlag] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -37,7 +39,8 @@ const CoinInfo = ({ coin }) => {
   const classes = useStyles();
 
   const fetchHistoricData = async () => {
-    const { data } = await axios.get(HistoricalChart(coin.id, days));
+    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+    setFlag(true);
 
     setHistoricData(data.prices);
   };
@@ -61,7 +64,7 @@ const CoinInfo = ({ coin }) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {!historicData ? (
+        {!historicData | (flag === false) ? (
           <CircularProgress
             style={{ color: "gold" }}
             size={250}
